@@ -24,7 +24,17 @@
   </head>
 
   <body>
-
+        <div id="users">
+            <header>
+                <div id="filter"><label>Show me:</label></div>
+            </header>
+        </div>
+        <script id="userTemplate" type="text/template">
+            <h1><%= name %>: </h1>
+            <dl>
+                <dt><%= fruit %></dt>
+            </dl>
+        </script>
       <form method="post" action="#" id= 'fruits' name="newMessage" onsubmit="return false">
     		<div id="user">
         	<select name= 'newFruitString' type="select" />
