@@ -1,7 +1,7 @@
 ﻿(function ($) {
 
     //demo data
-    var users = [
+    var data = [
         { name: "Contact 1", fruit: "apple"},
         { name: "Contact 2", address: "watermellon"}
     ];
@@ -13,7 +13,7 @@
    	//url: 'http://localhost:9393/users'
 	});
 	
-	var users = new Users;
+	var users = new Users(data);
 
 	var UserView = Backbone.View.extend({
 		tagName: "user",
@@ -21,8 +21,7 @@
 		template: _.template($("#userTemplate").html()),
 
   	render: function () {
-			debugger;
-    	this.$el.html(this.template(this.model.toJSON()));
+    	this.$el.html(this.template(this.model));
     	return this;
 		}
 	});
