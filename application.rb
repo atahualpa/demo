@@ -1,9 +1,37 @@
+require 'rubygems'
 require 'sinatra'
 require 'json'
+require 'dm-core'
+require 'dm-migrations'
+require 'dm-serializer'
 
-@@data = {
-	:user1 => {:name => 'Joe', :fruit => 'apple'}
-}
+DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+
+class User
+
+	include	DataMapper::Resource
+
+	property :id, 			Serial
+	property :name, 		String
+	property :fruit,		String
+
+end
+
+DataMapper.auto_migrate!
+
+# =========
+# = Users =
+# ========= 
+ 
+User.create(
+	:name    	=> "Aldo Escudero",
+	:fruit 		=> "papaya"
+)
+ 
+User.create(
+	:name    	=> "Carlos Lopez",
+	:fruit 		=> "melon"
+)
 
 
 
@@ -13,7 +41,7 @@ end
 
 get '/users' do
   content_type :json
-  @@data.to_json
+ 	User.all.to_json
 end
 
 post '/users' do

@@ -1,19 +1,13 @@
 ﻿(function ($) {
 
-    //demo data
-    var data = [
-        { name: "Contact 1", fruit: "apple"},
-        { name: "Contact 2", fruit: "watermellon"}
-    ];
-
 	var User = Backbone.Model.extend({});
 
 	var Users = Backbone.Collection.extend({
- 		model: User
-   	//url: 'http://localhost:9393/users'
+		model: User,
+		url: 'http://localhost:9393/users'
 	});
 	
-	var users = new Users(data);
+	var users = new Users;
 
 	var UserView = Backbone.View.extend({
 		tagName: "user",
@@ -30,6 +24,7 @@
   	el: $("#users"),
 
    	initialize: function () {
+			debugger;
    		// this.collection = new Users(users);
     	this.render();
     	//this.$el.find("#userEditTemplate").append(this.createSelect()); 
