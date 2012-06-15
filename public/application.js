@@ -9,8 +9,8 @@
 	var User = Backbone.Model.extend({});
 
 	var Users = Backbone.Collection.extend({
- 		model: User,
-   	url: 'http://localhost:9393/users'
+ 		model: User
+   	//url: 'http://localhost:9393/users'
 	});
 	
 	var users = new Users;
@@ -21,9 +21,10 @@
 		template: _.template($("#userTemplate").html()),
 
   	render: function () {
+			debugger;
     	this.$el.html(this.template(this.model.toJSON()));
     	return this;
-  	}
+		}
 	});
 
 	var UsersView = Backbone.View.extend({
@@ -32,14 +33,13 @@
    	initialize: function () {
    		this.collection = new Users(users);
     	this.render();
-    	this.$el.find("#filter").append(this.createSelect()); 
+    	//this.$el.find("#userEditTemplate").append(this.createSelect()); 
     	//this.on("change:filterType", this.filterByType, this);
     	//this.collection.on("reset", this.render, this);
   	 },
 
    	render: function () {
     	this.$el.find("user").remove();
-
    		_.each(this.collection.models, function (item) {
     		this.renderUser(item);
     	}, this);
@@ -56,6 +56,8 @@
    		return _.uniq(this.collection.pluck("fruit"));
    	},
 
+
+
    	createSelect: function () {
     	var select = $("<select/>", {
    			html: "<option value=''>Choose one</option>"
@@ -71,5 +73,25 @@
     	return select;
    	},
    });
+
+		$(function(){
+    //add routing
+    var UsersRouter = Backbone.Router.extend({
+        routes: {
+            '': 'index'
+        },
+				index: function(){alert('Hola que tal')}
+    });
+	
+    //create instance of master view
+    var users = new UsersView();
+
+    //create router instance
+    var usersRouter = new UsersRouter();
+
+
+    	//start history service
+    	Backbone.history.start();			
+		});
 
 } (jQuery));

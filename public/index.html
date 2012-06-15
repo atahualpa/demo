@@ -26,16 +26,19 @@
   <body>
         <div id="users">
             <header>
-                <div id="filter"><label>Show me:</label></div>
+                <div id="filter"><label>Users list:</label></div>
             </header>
         </div>
         <script id="userTemplate" type="text/template">
-            <h1><%= name %>: </h1>
+            <h1><%= model.get('name') %>: </h1>
             <dl>
-                <dt><%= fruit %></dt>
+                <dt><%= model.get('fruit') %></dt>
             </dl>
         </script>
-      <form method="post" action="#" id= 'fruits' name="newMessage" onsubmit="return false">
+        <script id="userEditTemplate" type="text/template">
+            <h1><%= model.get('name') %>: </h1>
+        </script>
+      <form method="post" action="#" id="fruits" name="newMessage" onsubmit="return false">
     		<div id="user">
         	<select name= 'newFruitString' type="select" />
        	 	<input type="submit" value='send'/>
