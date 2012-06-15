@@ -3,7 +3,7 @@
     //demo data
     var data = [
         { name: "Contact 1", fruit: "apple"},
-        { name: "Contact 2", address: "watermellon"}
+        { name: "Contact 2", fruit: "watermellon"}
     ];
 
 	var User = Backbone.Model.extend({});
@@ -21,7 +21,6 @@
 		template: _.template($("#userTemplate").html()),
 		
   	render: function () {
-			debugger;    
 			this.$el.html(this.template({model: this.model}));
     	return this;
 		}
@@ -31,7 +30,7 @@
   	el: $("#users"),
 
    	initialize: function () {
-   		this.collection = new Users(users);
+   		// this.collection = new Users(users);
     	this.render();
     	//this.$el.find("#userEditTemplate").append(this.createSelect()); 
     	//this.on("change:filterType", this.filterByType, this);
@@ -40,14 +39,12 @@
 
    	render: function () {
     	this.$el.find("user").remove();
-			debugger;
    		_.each(this.collection.models, function (item) {
     		this.renderUser(item);
     	}, this);
    	},
    
    	renderUser: function (item) {
-			debugger;
    		var userView = new UserView({
    			model: item
   		});
@@ -81,7 +78,6 @@
             '': 'index'
         },
 				index: function(){
-					debugger;
 					new UsersView({collection: users});
 				}
     });
