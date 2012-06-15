@@ -19,9 +19,10 @@
 		tagName: "user",
 		className: "user-container",
 		template: _.template($("#userTemplate").html()),
-
+		
   	render: function () {
-    	this.$el.html(this.template(this.model));
+			debugger;    
+			this.$el.html(this.template({model: this.model}));
     	return this;
 		}
 	});
@@ -39,12 +40,14 @@
 
    	render: function () {
     	this.$el.find("user").remove();
+			debugger;
    		_.each(this.collection.models, function (item) {
     		this.renderUser(item);
     	}, this);
    	},
    
    	renderUser: function (item) {
+			debugger;
    		var userView = new UserView({
    			model: item
   		});
@@ -54,8 +57,6 @@
 	 	getTypes: function () {
    		return _.uniq(this.collection.pluck("fruit"));
    	},
-
-
 
    	createSelect: function () {
     	var select = $("<select/>", {
@@ -79,11 +80,14 @@
         routes: {
             '': 'index'
         },
-				index: function(){alert('Hola que tal')}
+				index: function(){
+					debugger;
+					new UsersView({collection: users});
+				}
     });
 	
     //create instance of master view
-    var users = new UsersView();
+    //var users_view = new UsersView();
 
     //create router instance
     var usersRouter = new UsersRouter();
