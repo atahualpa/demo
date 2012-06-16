@@ -19,17 +19,26 @@ var users = new Users;
 var showUserView = Backbone.View.extend({
   tagName: "user",
   className: "user-container",
-  events: 'mouseup .edit','swapViews',
-  template: _.template($("#userTemplate").html()),
+  events: {
+    'mouseup .edit' : 'swapViews'
+  },
+  template: function() {
+    _.template($("#userTemplate").html());
+  },
+
+  initialize: function() {
+    this.render();
+    _.bindAll(this,'render','swapViews');
+  },
 
   swapViews: function(e) {
       // Wondering if "listUserView" goes here or not.
       // Should I be switching the general view ("listUserView")?.
       this.listUserView.toggle(); 
       this.editUserView.toggle();
-    }
+    },
 
-    render: function () {
+  render: function () {
      this.$el.html(this.template({model: this.model}));
      return this;
    }
@@ -43,14 +52,21 @@ var editUserView = Backbone.View.extend({
   initialize: function () {
     this.render();
     this.$el.find("#userEditTemplate").append(this.createSelect()); 
-  }
+    _.bindAll(this,'render','listUsersView','showUserView');
+  },
 
   render: function () {
    this.$el.html(this.template({model: this.model}));
    return this;
- }
+  },
+
+  swapViews: function(e) {
+    this.listUsersView.toggle(); 
+    this.showUserView.toggle();
+  },
 
  getTypes: function () {
+    debugger;
    return _.uniq(this.collection.pluck("fruit"));
  },
 
@@ -73,26 +89,27 @@ var editUserView = Backbone.View.extend({
 var listUsersView = Backbone.View.extend({
  el: $("#users"),
 
- initialize: function () {
+  initialize: function () {
    		// this.collection = new Users(users);
        this.render();
     	//this.on("change:filterType", this.filterByType, this);
     	//this.collection.on("reset", this.render, this);
-    },
+  },
 
-    render: function () {
+  render: function () {
     	this.$el.find("user").remove();
      _.each(this.collection.models, function (item) {
+      debugger;
       this.renderUser(item);
     }, this);
-   },
+  },
    
-   renderUser: function (item) {
-     var userView = new UserView({
+  renderUser: function (item) {
+     var userView = new showUserView({
       model: item
     });
      this.$el.append(userView.render().el);
-   },
+  }
  });
 
 $(function(){
@@ -113,7 +130,7 @@ $(function(){
      });
      }
    });
-    
+
     //create instance of master view
     //var users_view = new UsersView();
 
