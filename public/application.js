@@ -1,10 +1,17 @@
 ﻿(function ($) {
 
+
+/*
+2) 3 views: list, edit, show.  show knows about list and edit.  show has events: 'mouseup #some-div': swapViews, swapViews: function(e) {this.listView.toggle(); this.editView.toggle()}
+list view and edit views need a toggle setup too
+I generally have an initialize in all of my views that setup the _.bindAll, this, 'list', 'of', 'methods'
+*/
+
 	var User = Backbone.Model.extend({});
 
 	var Users = Backbone.Collection.extend({
 		model: User,
-		url: 'http://localhost:9393/users'
+		url: '/users'
 	});
 	
 	var users = new Users;
@@ -13,7 +20,8 @@
 		tagName: "user",
 		className: "user-container",
 		template: _.template($("#userTemplate").html()),
-		
+		editTemplate: _.template($("#userEditTemplate").html()),
+
   	render: function () {
 			this.$el.html(this.template({model: this.model}));
     	return this;
@@ -24,10 +32,9 @@
   	el: $("#users"),
 
    	initialize: function () {
-			debugger;
    		// this.collection = new Users(users);
     	this.render();
-    	//this.$el.find("#userEditTemplate").append(this.createSelect()); 
+    	this.$el.find("#userEditTemplate").append(this.createSelect()); 
     	//this.on("change:filterType", this.filterByType, this);
     	//this.collection.on("reset", this.render, this);
   	 },
@@ -73,7 +80,15 @@
             '': 'index'
         },
 				index: function(){
-					new UsersView({collection: users});
+					var users = new Users();
+					users.fetch({
+						success:function(a,b,c){
+							new UsersView({collection: users});
+						},	
+						error:function(a,b,c){
+							debugger;
+						}		
+					});
 				}
     });
 	
