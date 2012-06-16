@@ -22,31 +22,31 @@ DataMapper.auto_migrate!
 # =========
 # = Users =
 # ========= 
- 
+
 User.create(
 	:name    	=> "Aldo Escudero",
 	:fruit 		=> "papaya"
-)
- 
+	)
+
 User.create(
 	:name    	=> "Carlos Lopez",
 	:fruit 		=> "melon"
-)
+	)
 
 
 
 get '/' do
-  File.read(File.join('public', 'index.html'))
+	File.read(File.join('public', 'index.html'))
 end
 
 get '/users' do
-  content_type :json
- 	User.all.to_json
+	content_type :json
+	User.all.to_json
 end
 
 post '/users' do
-  content_type :json
-  message = JSON.parse(request.body.read.to_s)
-  @@data << message
-  message.to_json
+	content_type :json
+	message = JSON.parse(request.body.read.to_s)
+	@@data << message
+	message.to_json
 end

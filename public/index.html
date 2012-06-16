@@ -1,48 +1,48 @@
 <!DOCTYPE HTML>
 <html>
 
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <script src="underscore.js"></script>
-    <script src="jquery.js"></script>
-    <script src="backbone.js"></script>
-    <style type='text/css'>
-      textarea {
-        height:500px;
-        width:500px;
-      }
-      input[type="text"] {
-        width: 450px;
-      }
-      #user {
-        width: 600px;
-				height: 150px;
-        margin: 10px auto;
-				background-color: gray;
-      }
-    </style>
-  </head>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <script src="underscore.js"></script>
+  <script src="jquery.js"></script>
+  <script src="backbone.js"></script>
+  <style type='text/css'>
+  textarea {
+    height:500px;
+    width:500px;
+  }
+  input[type="text"] {
+    width: 450px;
+  }
+  #user {
+    width: 600px;
+    height: 150px;
+    margin: 10px auto;
+    background-color: gray;
+  }
+  </style>
+</head>
 
-  <body>
-        <div id="users">
-            <header>
-                <div id="filter"><label>Users list:</label></div>
-            </header>
-        </div>
-        <script id="userTemplate" type="text/template">
-            <h3><%= model.get('name') %>: </h3>
-            <dl>
-                <dt><%= model.get('fruit') %></dt>
-            </dl>
-						<a href="#" rel="<%= model.get('name') %>">Edit</a>
-						
-        </script>
-        <script id="userEditTemplate" type="text/template">
-            <h3><%= model.get('name') %>: </h3>
-        </script>
-    
-  </body>
+<body>
+  <div id="users">
+    <header>
+      <div id="filter"><label>Users list:</label></div>
+    </header>
+  </div>
+  <script id="userTemplate" type="text/template">
+  <h3><%= model.get('name') %>: </h3>
+  <dl>
+  <dt><%= model.get('fruit') %></dt>
+  </dl>
+  <a href="#" class="edit" rel="<%= model.get('name') %>">Edit</a>
+  
+  </script>
+  <script id="userEditTemplate" type="text/template">
+  <h3><%= model.get('name') %>: </h3>
+  </script>
+  
+</body>
 
-  <script src="application.js"></script>
+<script src="application.js"></script>
 </html>
 
