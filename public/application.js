@@ -24,7 +24,6 @@
     },
 
     swapViews: function(e) {
-      debugger;
       this.$el.html(this.editView);
     },
 
