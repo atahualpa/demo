@@ -11,7 +11,7 @@
   var ShowUserView = Backbone.View.extend({
 
     tagName: "user",
-    className: "user-container",
+    className: "user-show-container",
     template: _.template($("#userTemplate").html()),
 
     events: {
@@ -24,7 +24,8 @@
     },
 
     swapViews: function(e) {
-      // this.$el.html(this.editView);
+      debugger;
+      this.$el.html(this.editView);
     },
 
     render: function () {
@@ -38,7 +39,7 @@
 
   var EditUserView = Backbone.View.extend({
     tagName: "user",
-    className: "user-container",
+    className: "user-edit-container",
     template: _.template($("#userEditTemplate").html()),
 
     initialize: function () {
@@ -79,6 +80,7 @@
       this.render();
       //this.on("change:filterType", this.filterByType, this);
       //this.collection.on("reset", this.render, this);
+
     },
 
     render: function () {
@@ -89,10 +91,14 @@
     },
 
     renderUser: function (item) {
-      var userView = new ShowUserView({
+      var userShowView = new ShowUserView({
         model: item
       });
-      this.$el.append(userView.el);
+      var userEditView = new EditUserView({
+        model: item
+      });
+      this.$el.append(userShowView.el);
+      this.$el.append(userEditView.el);
     }
   }); // ListUsersView
 

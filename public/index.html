@@ -20,6 +20,9 @@
     margin: 10px auto;
     background-color: gray;
   }
+  .user-edit-container {
+    display: none;
+  }
   </style>
 </head>
 
@@ -34,10 +37,10 @@
   <dl>
   <dt><%= model.get('fruit') %></dt>
   </dl>
-  <a href="javascript:void(0)" class="edit" rel="<%= model.get('name') %>">Edit</a>
+  <a href="javascript:void(0)" rel="<%= model.get('name') %>">Edit</a>
   
   </script>
-  <script id="userEditTemplate" type="text/template">
+  <script id="userEditTemplate" class="edit-user" type="text/template">
   <h3><%= model.get('name') %>: </h3>
   </script>
   
