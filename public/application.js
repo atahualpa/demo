@@ -32,7 +32,7 @@
       this.editView = new EditUserView({model: this.model});
       this.$el.html(this.showView);
       // this.$el.append(this.editView.el);
-      $el.find('.edit').bind('mouseup', this.swapViews);
+      this.$el.find('.edit').bind('mouseup', this.swapViews);
       return this;
     }
   });
@@ -48,8 +48,10 @@
     },
 
     render: function () {
+      var editButtons='<br/><a href="javascript:void(0)" class="save-button">Save</a> <a href="javascript:void(0)" class="cancel-button">Cancel</a>'
       this.$el.html(this.template({model: this.model}));
       this.$el.append(this.createSelect()); 
+      this.$el.append(editButtons);
       return this;
     },
 

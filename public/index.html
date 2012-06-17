@@ -20,8 +20,8 @@
     margin: 10px auto;
     background-color: gray;
   }
-  .user-edit-container {
-    display: none;
+  .display {
+    display: block;    
   }
   </style>
 </head>
@@ -32,16 +32,23 @@
       <div id="filter"><label>Users list:</label></div>
     </header>
   </div>
-  <script id="userTemplate" type="text/template">
-  <h3><%= model.get('name') %>: </h3>
-  <dl>
-  <dt><%= model.get('fruit') %></dt>
-  </dl>
-  <a href="javascript:void(0)" rel="<%= model.get('name') %>">Edit</a>
+
+  <!-- Templates -->
   
+  <script id="userTemplate" type="text/template">
+    <div class="display">
+      <h3><%= model.get('name') %>: </h3>
+      <dl>
+        <dt><%= model.get('fruit') %></dt>
+      </dl>
+      <a href="javascript:void(0)" class="edit-button" rel="<%= model.get('name') %>">Edit</a>
+    </div>
   </script>
-  <script id="userEditTemplate" class="edit-user" type="text/template">
-  <h3><%= model.get('name') %>: </h3>
+
+  <script id="userEditTemplate" type="text/template">
+    <div class="edit">
+      <h3><%= model.get('name') %>: </h3>
+    </div>
   </script>
   
 </body>
