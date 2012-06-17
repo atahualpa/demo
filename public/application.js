@@ -33,6 +33,7 @@
       this.editView = new EditUserView({model: this.model});
       this.$el.html(this.showView);
       // this.$el.append(this.editView.el);
+      $el.find('.edit').bind('mouseup', this.swapViews);
       return this;
     }
   });
