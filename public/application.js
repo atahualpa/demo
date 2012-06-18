@@ -12,10 +12,10 @@
 
     tagName: "user",
     className: "user-show-container",
-    template: _.template($("#userTemplate").html()),
+    template: _.template($("#userShowTemplate").html()),
 
     events: {
-      'mouseup .edit' : 'swapViews'
+      'mouseup .edit-button' : 'swapViews'
     },
 
     initialize: function() {
@@ -24,23 +24,32 @@
     },
 
     swapViews: function(e) {
-      this.$el.html(this.editView);
+      debugger;
+      $(this.el).find('.user-show-container').hide();
+      $(this.el).find('.user-edit-container').show();
+      //this.$el.html(this.editView);
     },
 
     render: function () {
+      debugger;
       this.showView = this.template({model: this.model});
       this.editView = new EditUserView({model: this.model});
       this.$el.html(this.showView);
-      this.$el.append(this.editView.el);
-      this.$el.find('.edit').bind('mouseup', this.swapViews);
+      this.$el.html(this.editView);
+      //this.$el.append(this.editView.el); // tratamos de usar html en vez de append
+      //this.$el.find('.edit-button').bind('mouseup', this.swapViews);
       return this;
     }
   });
 
   var EditUserView = Backbone.View.extend({
-    tagName: "user",
+    tagName:  "user",
     className: "user-edit-container",
     template: _.template($("#userEditTemplate").html()),
+    events:   {
+      'mouseup .save-button' : 'save',
+      'mouseup .cancel-button' : 'swapViews'
+    },
 
     initialize: function () {
       _.bindAll(this,'render','getTypes','createSelect');
@@ -53,6 +62,17 @@
       this.$el.append(this.createSelect()); 
       this.$el.append(editButtons);
       return this;
+    },
+
+    swapViews: function(e) {
+      //debugger;
+      $(this.el).find('.user-edit-container').hide();
+      $(this.el).find('.user-show-container').show();
+      //this.$el.html(this.editView);
+    },
+
+    save: function() {
+
     },
 
     getTypes: function () {
@@ -72,7 +92,7 @@
       });
 
       return select;
-    },
+    }
   }); // EditUserView
 
   var ListUsersView = Backbone.View.extend({

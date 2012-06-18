@@ -20,11 +20,11 @@
     margin: 10px auto;
     background-color: gray;
   }
-  .display {
+  .user-show-container {
     display: block;    
   }
-  .edit {
-    display: block;    
+  .user-edit-container {
+    display: none;    
   }
   </style>
 </head>
@@ -38,20 +38,16 @@
 
   <!-- Templates -->
   
-  <script id="userTemplate" type="text/template">
-    <div class="display">
+  <script id="userShowTemplate" type="text/template">
       <h3><%= model.get('name') %>: </h3>
       <dl>
         <dt><%= model.get('fruit') %></dt>
       </dl>
       <a href="javascript:void(0)" class="edit-button" rel="<%= model.get('name') %>">Edit</a>
-    </div>
   </script>
 
   <script id="userEditTemplate" type="text/template">
-    <div class="edit">
-      <h3><%= model.get('name') %>: </h3>
-    </div>
+    <h3><%= model.get('name') %>: </h3>
   </script>
   
 </body>
