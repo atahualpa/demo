@@ -28,10 +28,10 @@
     },
 
     render: function () {
-      this.showView = this.template({model: this.model})
+      this.showView = this.template({model: this.model});
       this.editView = new EditUserView({model: this.model});
       this.$el.html(this.showView);
-      // this.$el.append(this.editView.el);
+      this.$el.append(this.editView.el);
       this.$el.find('.edit').bind('mouseup', this.swapViews);
       return this;
     }
@@ -44,7 +44,7 @@
 
     initialize: function () {
       _.bindAll(this,'render','getTypes','createSelect');
-      this.render()
+      this.render();
     },
 
     render: function () {
@@ -80,9 +80,6 @@
 
     initialize: function () {
       this.render();
-      //this.on("change:filterType", this.filterByType, this);
-      //this.collection.on("reset", this.render, this);
-
     },
 
     render: function () {
@@ -96,11 +93,7 @@
       var userShowView = new ShowUserView({
         model: item
       });
-      var userEditView = new EditUserView({
-        model: item
-      });
       this.$el.append(userShowView.el);
-      this.$el.append(userEditView.el);
     }
   }); // ListUsersView
 
