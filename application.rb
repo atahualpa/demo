@@ -19,6 +19,8 @@ class User
 end
 
 # DataMapper.auto_migrate!
+DataMapper.auto_upgrade!
+DataMapper.finalize
 
 # # =========
 # # = Users =
@@ -34,8 +36,6 @@ end
 # 	:fruit 		=> "melon"
 # 	)
 
-
-
 get '/' do
 	File.read(File.join('public', 'index.html'))
 end
@@ -46,10 +46,11 @@ get '/users' do
 end
 
 put '/users/:id' do
+  body = request.body.read.to_s
 	content_type :json
-	user_attr = JSON.parse(request.body.read.to_s)
-	binding.pry
 	user = User.get(params[:id])
-	user.attributes = user_attr 
+	user_attr = JSON.parse(body)
+	user_attr.delete("id")
+	user.update user_attr
 	user.save
 end

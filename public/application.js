@@ -69,7 +69,6 @@
     },
 
     save: function() {
-      debugger;
       var fruit = this.$el.find('select').val();
       this.model.save({fruit: fruit});
       //  TODO
