@@ -20,24 +20,20 @@
 
     initialize: function() {
       _.bindAll(this, 'render', 'swapViews');
+      this.model.bind('change', this.render);
       this.render();
     },
 
     swapViews: function(e) {
-      debugger;
-      $(this.el).find('.user-show-container').hide();
+      this.editView = new EditUserView({model: this.model}); 
+      this.$el.html(this.editView.el);
       $(this.el).find('.user-edit-container').show();
-      //this.$el.html(this.editView);
     },
 
     render: function () {
-      debugger;
       this.showView = this.template({model: this.model});
       this.editView = new EditUserView({model: this.model});
       this.$el.html(this.showView);
-      this.$el.html(this.editView);
-      //this.$el.append(this.editView.el); // tratamos de usar html en vez de append
-      //this.$el.find('.edit-button').bind('mouseup', this.swapViews);
       return this;
     }
   });
@@ -52,7 +48,8 @@
     },
 
     initialize: function () {
-      _.bindAll(this,'render','getTypes','createSelect');
+      _.bindAll(this,'render','getTypes','createSelect','swapViews');
+      this.model.bind('change', this.render);
       this.render();
     },
 
@@ -61,18 +58,21 @@
       this.$el.html(this.template({model: this.model}));
       this.$el.append(this.createSelect()); 
       this.$el.append(editButtons);
+
+      this.$el.find('select').val(this.model.get('fruit'));
       return this;
     },
 
     swapViews: function(e) {
-      //debugger;
-      $(this.el).find('.user-edit-container').hide();
-      $(this.el).find('.user-show-container').show();
-      //this.$el.html(this.editView);
+      this.showView = new ShowUserView({model: this.model});
+      this.$el.html(this.showView.el);
     },
 
     save: function() {
-
+      debugger;
+      var fruit = this.$el.find('select').val();
+      this.model.save({fruit: fruit});
+      //  TODO
     },
 
     getTypes: function () {
@@ -114,6 +114,11 @@
         model: item
       });
       this.$el.append(userShowView.el);
+
+      var userEditView = new EditUserView({
+        model: item
+      });
+      this.$el.append(userEditView.el);
     }
   }); // ListUsersView
 

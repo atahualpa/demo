@@ -4,6 +4,7 @@ require 'json'
 require 'dm-core'
 require 'dm-migrations'
 require 'dm-serializer'
+require 'pry'
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/development.db")
 
@@ -17,21 +18,21 @@ class User
 
 end
 
-DataMapper.auto_migrate!
+# DataMapper.auto_migrate!
 
-# =========
-# = Users =
-# ========= 
+# # =========
+# # = Users =
+# # ========= 
 
-User.create(
-	:name    	=> "Aldo Escudero",
-	:fruit 		=> "papaya"
-	)
+# User.create(
+# 	:name    	=> "Aldo Escudero",
+# 	:fruit 		=> "papaya"
+# 	)
 
-User.create(
-	:name    	=> "Carlos Lopez",
-	:fruit 		=> "melon"
-	)
+# User.create(
+# 	:name    	=> "Carlos Lopez",
+# 	:fruit 		=> "melon"
+# 	)
 
 
 
@@ -44,9 +45,11 @@ get '/users' do
 	User.all.to_json
 end
 
-post '/users' do
+put '/users/:id' do
 	content_type :json
-	message = JSON.parse(request.body.read.to_s)
-	@@data << message
-	message.to_json
+	user_attr = JSON.parse(request.body.read.to_s)
+	binding.pry
+	user = User.get(params[:id])
+	user.attributes = user_attr 
+	user.save
 end
